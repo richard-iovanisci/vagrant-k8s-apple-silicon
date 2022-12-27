@@ -23,7 +23,7 @@
 
   - name: Add apt repository for stable version
     apt_repository:
-      repo: deb [arch=arm64] https://download.docker.com/linux/ubuntu focal stable
+      repo: deb [arch=arm64] https://download.docker.com/linux/ubuntu xenial stable
       state: present
 
   - name: Install docker and its dependecies
@@ -66,7 +66,7 @@
 
   - name: Adding apt repository for Kubernetes
     apt_repository:
-      repo: deb https://apt.kubernetes.io/ kubernetes-focal main
+      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
       state: present
       filename: kubernetes.list
 
@@ -85,6 +85,7 @@
     lineinfile:
       path: /etc/default/kubelet
       line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+      create: yes
 
   - name: Restart kubelet
     service:
