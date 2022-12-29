@@ -116,7 +116,7 @@
 ### Install Calico Network
   - name: Install tigera-operator
     become: false
-    command: kubectl create -f kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
+    command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
   - name: Install custom-resources
     become: false
     command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/custom-resources.yaml
