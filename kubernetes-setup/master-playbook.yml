@@ -23,7 +23,7 @@
 
   - name: Add apt repository for stable version
     apt_repository:
-      repo: deb [arch=arm64] https://download.docker.com/linux/ubuntu xenial stable
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
       state: present
 
   - name: Install docker and its dependecies
@@ -77,9 +77,15 @@
       update_cache: yes
     vars:
       packages:
-        - kubelet 
-        - kubeadm 
-        - kubectl
+        - kubelet=1.25.5-00
+        - kubeadm=1.25.5-00
+        - kubectl=1.25.5-00  
+
+  # containerd toml refresh
+  - name: remove containerd toml 
+    command: rm /etc/containerd/config.toml
+  - name: restart containerd
+    command: sudo systemctl restart containerd
 
   - name: Configure node ip
     lineinfile:
@@ -94,12 +100,8 @@
       state: restarted
 
 # Initialize the Kubernetes cluster with kubeadm using the below code (applicable only on master node)
-  - name: remove containerd toml 
-    command: rm /etc/containerd/config.toml
-  - name: restart containerd
-    command: sudo systemctl restart containerd
   - name: Initialize the Kubernetes cluster using kubeadm
-    command: kubeadm init --apiserver-advertise-address="192.168.50.10" --apiserver-cert-extra-sans="192.168.50.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16
+    command: kubeadm init --apiserver-advertise-address="192.168.50.10" --apiserver-cert-extra-sans="192.168.50.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16 --v=6
 
 # Setup the kube config file for the vagrant user to access the Kubernetes cluster using the below code
   - name: Setup kubeconfig for vagrant user
@@ -121,7 +123,7 @@
 
   - name: Copy join command to local file
     local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
-    become_user: richardiovanisci
+    become_user: rich-iovanisci
 
 # Setup a handler for checking Docker daemon using the below code
   handlers:
