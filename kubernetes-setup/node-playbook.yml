@@ -77,9 +77,15 @@
       update_cache: yes
     vars:
       packages:
-        - kubelet 
-        - kubeadm 
-        - kubectl
+        - kubelet=1.25.5-00
+        - kubeadm=1.25.5-00
+        - kubectl=1.25.5-00  
+
+  # containerd toml refresh
+  - name: remove containerd toml 
+    command: rm /etc/containerd/config.toml
+  - name: restart containerd
+    command: sudo systemctl restart containerd
 
   - name: Configure node ip
     lineinfile:
