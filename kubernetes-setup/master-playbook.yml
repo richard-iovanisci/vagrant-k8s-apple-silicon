@@ -23,7 +23,7 @@
 
   - name: Add apt repository for stable version
     apt_repository:
-      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+      repo: deb [arch=arm64] https://download.docker.com/linux/ubuntu xenial stable
       state: present
 
   - name: Install docker and its dependecies
@@ -123,7 +123,7 @@
 
   - name: Copy join command to local file
     local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
-    become_user: rich-iovanisci
+    become_user: richardiovanisci
 
 # Setup a handler for checking Docker daemon using the below code
   handlers:
