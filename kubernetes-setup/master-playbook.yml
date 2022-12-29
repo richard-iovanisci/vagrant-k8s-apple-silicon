@@ -112,9 +112,14 @@
      - chown vagrant:vagrant /home/vagrant/.kube/config
 
 # Setup the container networking provider and the network policy engine using the below code
-  - name: Install calico pod network
+## New commands taken from here: https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart
+### Install Calico Network
+  - name: Install tigera-operator
     become: false
-    command: kubectl create -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml
+    command: kubectl create -f kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
+  - name: Install custom-resources
+    become: false
+    command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/custom-resources.yaml
 
 # Generate kube join command for joining the node to the Kubernetes cluster and store the command in the file named join-command
   - name: Generate join command
