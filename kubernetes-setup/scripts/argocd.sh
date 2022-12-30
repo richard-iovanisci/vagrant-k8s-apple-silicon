@@ -12,9 +12,13 @@ kubectl get svc -n argocd
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 
 # cli
-curl -sSL -o argocd-linux-arm64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-arm64
-sudo install -m 555 argocd-linux-arm64 /usr/local/bin/argocd
-rm argocd-linux-arm64
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+rm argocd-linux-amd64
 
 # login with argocd login <server>
-# can follow 'getting started' here: https://argo-cd.readthedocs.io/en/stable/getting_started/ -- app deployment works but some or all example apps will fail due to arm64 arch
+# can follow 'getting started' here: https://argo-cd.readthedocs.io/en/stable/getting_started/
+## for amd64, need to edit deployment for argocd-repo-server:
+### kubectl rollout restart deployment/argocd-repo-server -n argocd
+### remove: seccompProfile:/ type: RuntimeDefault from containerSecurityContext
+### kubectl rollout restart deployment/argocd-repo-server -n argocd
