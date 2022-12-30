@@ -17,4 +17,5 @@ sudo install -m 555 argocd-linux-arm64 /usr/local/bin/argocd
 rm argocd-linux-arm64
 
 # login with argocd login <server>
-# can follow 'getting started' here: https://argo-cd.readthedocs.io/en/stable/getting_started/ -- app deployment works but some or all example apps will fail due to arm64 arch
+# can follow 'getting started' here: https://argo-cd.readthedocs.io/en/stable/getting_started/clear
+##app deployment works but some or all example apps will fail due to arm64 arch
