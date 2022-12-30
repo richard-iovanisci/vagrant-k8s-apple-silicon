@@ -1,11 +1,11 @@
-IMAGE_NAME = "bento/ubuntu-20.04"
+IMAGE_NAME = "bento/ubuntu-20.04-arm64"
 #IMAGE_VERSION = "202112.19.0"
 N = 2
 
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
 
-    config.vm.provider "virtualbox" do |v|
+    config.vm.provider "parallels" do |v|
         v.memory = 4096
         v.cpus = 2
     end
