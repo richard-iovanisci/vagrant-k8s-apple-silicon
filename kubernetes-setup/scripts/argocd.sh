@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # install argocd
+## note, this can also be done using helm
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
