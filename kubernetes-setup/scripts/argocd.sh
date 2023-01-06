@@ -5,7 +5,7 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 # create service and get details
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort", "ports": [{"port": 80,"nodePort": 32080,"name": "http"},{"port": 443,"nodePort": 32443,"name": "https"}]}}'
 kubectl get svc -n argocd
 
 # get password for 'admin' account -- can be changes later to something like 'argoAdmin123$'
@@ -19,6 +19,5 @@ rm argocd-linux-amd64
 # login with argocd login <server>
 # can follow 'getting started' here: https://argo-cd.readthedocs.io/en/stable/getting_started/
 ## for amd64, need to edit deployment for argocd-repo-server:
-### kubectl rollout restart deployment/argocd-repo-server -n argocd
 ### remove: seccompProfile:/ type: RuntimeDefault from containerSecurityContext
 ### kubectl rollout restart deployment/argocd-repo-server -n argocd
