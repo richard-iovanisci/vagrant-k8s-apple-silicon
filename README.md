@@ -1,4 +1,4 @@
-# vagrant-k8s-apple-silicon
+# vagrant-k8s-arm64
 
 Vagrant + Ansible + Parallels for Multi-Node Local k8s Test Environment
 
