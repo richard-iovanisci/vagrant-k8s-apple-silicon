@@ -15,7 +15,8 @@ Vagrant.configure("2") do |config|
         #master.vm.box_version = IMAGE_VERSION
         master.vm.network "private_network", ip: "192.168.50.10"
         # port for argocd exposed to host
-        master.vm.network "forwarded_port", guest: 32443, host: 32443
+        ## commenting out to try tailscale instead
+        #master.vm.network "forwarded_port", guest: 32443, host: 32443
         master.vm.hostname = "k8s-master"
         master.vm.provision "ansible" do |ansible|
             ansible.playbook = "kubernetes-setup/master-playbook.yml"
